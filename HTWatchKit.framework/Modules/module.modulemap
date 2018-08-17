@@ -1,0 +1,6 @@
+framework module HTWatchKit {
+  umbrella header "HTWatchKit.h"
+
+  export *
+  module * { export * }
+}
