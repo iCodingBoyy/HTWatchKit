@@ -12,5 +12,6 @@
 ## 前言
 
 >如果你是`HTWatchKit`非相关用户，请忽略以下内容，本SDK主要针对定制客户。
->在开始本文之前，我们默认你已经掌握了iOS开发要领，并对 [CoreBluetooth](https://developer.apple.com/documentation/corebluetooth)框架有一定的了解,如果疑问请去[Apple Developer](https://developer.apple.com/documentation)查阅相关资料。本SDK的所有API接口都做了注释，使用之前你应该熟悉一遍文件功能结构并通读一遍API注释，当然你也可以通过XCode安装[DocSet](https://github.com/myz1104/HTWatchKit)文档查阅相关内容。如果疑问请联系本人: \n - **QQ**：[592693149][2]
+>在开始本文之前，我们默认你已经掌握了iOS开发要领，并对 [CoreBluetooth](https://developer.apple.com/documentation/corebluetooth)框架有一定的了解,如果疑问请去[Apple Developer](https://developer.apple.com/documentation)查阅相关资料。本SDK的所有API接口都做了注释，使用之前你应该熟悉一遍文件功能结构并通读一遍API注释，当然你也可以通过XCode安装[DocSet](https://github.com/myz1104/HTWatchKit)文档查阅相关内容。如果疑问请联系本人: 
 > - **邮箱**：<myz1104@126.com>
+> - **QQ**：[592693149][2]
