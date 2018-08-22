@@ -27,6 +27,14 @@ FOUNDATION_EXTERN NSString *const EVENT_DISCOVER_CHARACTERISTICS_NOTIFY;
 FOUNDATION_EXTERN NSString *const EVENT_FIRMWARE_UPDATE_DISCONNECT_PERIPHERAL_NOTIFY;
 
 
+// 收到手表发出的拍摄照片指令，收到此指令你可以调用相机拍照功能进行拍照
+FOUNDATION_EXTERN NSString *const EVENT_TAKE_PICTURES_COMMAND_NOTIFY;
+
+// 收到手表发出的查找手机指令，收到此指令你可以震动、响铃或者做其他操作方便用户通过手表找到手机
+FOUNDATION_EXTERN NSString *const EVENT_FIND_YOUR_PHONE_COMMAND_NOTIFY;
+
+#pragma mark  - 响应数据
+
 typedef NSString * HWKResponseDataIdentifier NS_STRING_ENUM;
 
 // 手表系统配置数据标志
@@ -64,31 +72,6 @@ FOUNDATION_EXTERN HWKResponseDataIdentifier const HWKRuningStateDataIdentifier;
 // 手表固件版本数据标志
 FOUNDATION_EXTERN HWKResponseDataIdentifier const HWKFirmwareVersionDataIdentifier;
 
-
-static inline void st_dispatch_async_main(dispatch_block_t block)
-{
-    if ([NSThread isMainThread]) {
-        block();
-    }
-    else
-    {
-        dispatch_async(dispatch_get_main_queue(), block);
-    }
-}
-
-static inline void st_dispatch_async(dispatch_queue_t queue, dispatch_block_t block)
-{
-    if (queue && block) {
-        dispatch_async(queue, block);
-    }
-}
-
-static inline void st_dispatch_sync(dispatch_queue_t queue, dispatch_block_t block)
-{
-    if (queue && block) {
-        dispatch_sync(queue, block);
-    }
-}
 
 @interface HTWatchConstant : NSObject
 

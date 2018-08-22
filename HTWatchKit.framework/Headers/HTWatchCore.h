@@ -6,9 +6,8 @@
 //  Copyright © 2017年 马远征. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreBluetooth/CoreBluetooth.h>
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "HTWatchDefine.h"
 #import "HTWatchBlock.h"
 #import "HTWWeather.h"
@@ -33,6 +32,14 @@
 
 
 + (instancetype)shareCore;
+
+/**
+ 设置debug打印日志模式，暂不支持
+ 
+ @warning 如果设备未连接，则返回空
+ @param printLog 是否打印日子
+ */
++ (void)setDebugLogMode:(BOOL)printLog;
 
 /**
  获取当前连接设备的uuid
@@ -77,7 +84,7 @@
 
 /**
  连接蓝牙外设外设
- 注：调用此接口后应该停止扫描蓝牙外设<i>stopScanning</i>
+ 注：调用此接口后会调用<i>stopScanning</i>停止扫描蓝牙外设
  
  @param peripheral 要连接的外设
  @seealso EVENT_CONNECT_PERIPHERAL_NOTIFY,EVENT_FAIL_CONNECT_PERIPHERAL_NOTIFY
@@ -106,7 +113,7 @@
 #pragma mark - 控制监听
 
 /**
- app监听来自手表的拍照控制指令
+ 手表发出请求拍照指令，app收到后应该调用相机进行拍照
 
  @param retHandler 拍照控制响应回调
  */
@@ -114,7 +121,7 @@
 
 
 /**
- app监听手表发出的查找手机指令
+ 手表发出查找手机指令，app收到指令应该播放声音并做其他动作提醒用户
 
  @param retHandler 查找手机指令回调
  */

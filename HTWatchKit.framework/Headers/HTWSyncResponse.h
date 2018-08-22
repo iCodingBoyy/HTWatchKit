@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, HWKSyncResponseState) {
     HWKSyncResponseStateError,
 };
 
+
 /**
  同步响应结果错误码，如果蓝牙在通讯过程中centralManager发生状态变化，部分蓝牙相关状态被回调
  */
@@ -130,7 +131,6 @@ typedef NS_ENUM(NSInteger, HWKSyncResponseErrorCode) {
 - (void)setResponseData:(NSData*)data forIdentifier:(NSString*)identifier;
 
 
-
 /**
  根据identifier获取响应数据，如果传入nil，则默认返回第一个数据
  此接口只针对带有响应数据接口有效，具体查看HWKResponseDataIdentifier标志定义
@@ -139,6 +139,8 @@ typedef NS_ENUM(NSInteger, HWKSyncResponseErrorCode) {
  */
 - (NSData*)getResponseDataWithIdentifier:(NSString*)identifier;
 
+
 #pragma mark - init
+
 + (instancetype)errorResponseWithType:(HWKSyncType)syncType errorCode:(HWKSyncResponseErrorCode)errorCode;
 @end
