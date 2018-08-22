@@ -1,7 +1,7 @@
 # HTWatchKit
 
 
-[![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)](https://github.com/myz1104/HTWatchKit);
+[![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)](https://github.com/myz1104/HTWatchKit)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/YYModel.svg?style=flat)](http://cocoapods.org/pods/YYModel)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/p/YYModel.svg?style=flat)](http://cocoadocs.org/docsets/YYModel)&nbsp;
 [![Build Status](https://travis-ci.org/ibireme/YYModel.svg?branch=master)](https://travis-ci.org/ibireme/YYModel)&nbsp;
