@@ -36,7 +36,6 @@
 /**
  设置debug打印日志模式，暂不支持
  
- @warning 如果设备未连接，则返回空
  @param printLog 是否打印日子
  */
 + (void)setDebugLogMode:(BOOL)printLog;
@@ -54,6 +53,7 @@
  @return name字符串
  */
 - (NSString*)connectedPeripheralName;
+
 
 #pragma mark - 扫描
 
@@ -75,7 +75,7 @@
 
 #pragma mark - 连接与断开
 /**
- 判断当前的<code>servicePeripheral</code>是否已链接
+ 判断外设是否已连接
  
  @return YES/NO
  */
@@ -84,7 +84,7 @@
 
 /**
  连接蓝牙外设外设
- 注：调用此接口后会调用<i>stopScanning</i>停止扫描蓝牙外设
+ 注：调用此接口后会调`stopScanning`停止扫描蓝牙外设
  
  @param peripheral 要连接的外设
  @seealso EVENT_CONNECT_PERIPHERAL_NOTIFY,EVENT_FAIL_CONNECT_PERIPHERAL_NOTIFY
@@ -94,7 +94,7 @@
 
 
 /**
- 断开<i>peripheral</i>连接, 断开结果回调请接收通知 {@see EVENT_DISCONNECT_PERIPHERAL_NOTIFY}
+ 断开`peripheral`连接, 断开结果回调请接收通知 {@see EVENT_DISCONNECT_PERIPHERAL_NOTIFY}
  
  @param peripheral 要断开的外设
  @return YES/NO, 如果进入了断开流程返回YES
@@ -103,35 +103,14 @@
 
 
 /**
- 断开<i>servicePeripheral</i>连接，断开结果回调请接收通知 {@see EVENT_DISCONNECT_PERIPHERAL_NOTIFY}
+ 断开当前外设连接，断开结果回调请接收通知 {@see EVENT_DISCONNECT_PERIPHERAL_NOTIFY}
  
  @return YES/NO, 如果进入了断开流程返回YES
  */
 - (BOOL)disconnect;
 
 
-#pragma mark - 控制监听
-
-/**
- 手表发出请求拍照指令，app收到后应该调用相机进行拍照
-
- @param retHandler 拍照控制响应回调
- */
-- (void)wkOnReceivedCameraControlCMD:(dispatch_block_t)retHandler;
-
-
-/**
- 手表发出查找手机指令，app收到指令应该播放声音并做其他动作提醒用户
-
- @param retHandler 查找手机指令回调
- */
-- (void)wkOnReceivedFindYourPhoneCMD:(dispatch_block_t)retHandler;
-
-
-
-
-#pragma mark - 传感器标志
-
+#pragma mark - 传感器支持类型
 /**
  判断当前类型的数据是否可以同步，随着固件的升级，部分接口可能不适用于老的固件，需要此功能做检查
  在调用部分蓝牙接口时，如果固件不匹配则会返回<i>HWKSyncResponseStateNoSensorFlag</i>表示当前接口不适用当前固件
@@ -142,6 +121,25 @@
  */
 - (BOOL)isSyncEnable:(HWKSensorFlagType)type;
 
+
+#pragma mark - 控制监听
+
+/**
+ 手表发出请求拍照指令，app收到后应该调用相机进行拍照
+
+ @seealso `EVENT_TAKE_PICTURES_COMMAND_NOTIFY`你也可以通过注册通知来接收该指令
+ @param retHandler 拍照控制响应回调
+ */
+- (void)wkOnReceivedCameraControlCMD:(dispatch_block_t)retHandler;
+
+
+/**
+ 手表发出查找手机指令，app收到指令应该播放声音、震动或者做其他动作提醒用户
+
+ @seealso `EVENT_FIND_YOUR_PHONE_COMMAND_NOTIFY`你也可以通过注册通知来接收该指令
+ @param retHandler 查找手机指令回调
+ */
+- (void)wkOnReceivedFindYourPhoneCMD:(dispatch_block_t)retHandler;
 
 
 
@@ -157,7 +155,7 @@
 
 
 /**
- 绑定设备组合指令，绑定完成返回手表系统配置数据，如果系统配置存储失败，做绑定失败处理
+ 绑定设备组合指令，绑定完成返回手表系统配置和MAC地址，如果系统配置存储失败，做绑定失败处理
 
  @param watchConfig 手表配置数据
  @param retHandler 同步结果回调
@@ -174,7 +172,7 @@
 
 
 /**
- 获取历史数据组合指令
+ 获取历史数据指令，包含日总、运动、睡眠、心率等数据
 
  @param watchConfig 手表配置
  @param dataCallback 数据回调
@@ -199,7 +197,7 @@
 /**
  设置闹钟数据，最多可以设置8个闹钟
  
- @see HTWAlarmClock
+ @see `HTWAlarmClock`
  @param data 闹钟配置数据
  @param retHandler 同步结果回调
  */
@@ -209,7 +207,7 @@
 /**
  获取闹钟列表数据
  
- @see HTWAlarmClock
+ @see `HTWAlarmClock`
  @param retHandler 同步结果回调
  */
 - (void)wkGetAlarmList:(HWKSyncResponseHandler)retHandler;
@@ -246,7 +244,7 @@
 /**
  手表功能开关设置
  
- @see HTWFunctionSwitch
+ @see `HTWFunctionSwitch`
  @param data 功能开关配置数据
  @param retHandler 同步结果回调
  */
@@ -254,8 +252,9 @@
 
 
 /**
- 健康历史记录
+ 健康历史记录监测设置
  
+ @see `HTWHealthMonitoring`
  @param data 健康历史记录数据
  @param retHandler 同步结果回调
  */
@@ -301,7 +300,7 @@
 
 
 /**
- 查找手表设置，如果蓝牙处于连接状态，当手表收到手机app发出的查找手表命令后手表开始震动
+ 查找手表设置，如果蓝牙处于连接状态，当手表收到手机app发出的查找命令后手表开始震动
  
  @param retHandler 同步结果回调
  */
@@ -309,7 +308,7 @@
 
 
 /**
- 天气设置，此接口会判断传感器标志位HWKSensorFlagTypeWeather，如果返回 <i>FCSyncResponseStateNoSensorFlag</i> 说明此功能不可用
+ 天气设置，此接口会判断传感器标志位HWKSensorFlagTypeWeather，如果返回 <i>HWKSyncResponseStateNoSensorFlag</i> 说明此功能不可用
  
  @param weather 天气数据对象
  @param retHandler 同步结果回调
@@ -318,7 +317,7 @@
 
 
 /**
- 收到手机回复，如果蓝牙处于连接状态，当收到手表发出的查找手机命令后，手机发送一个回复给手表表示找到手机
+ 找到手机回复，如果蓝牙处于连接状态，当收到手表发出的查找手机命令后，手机发送一个回复给手表表示找到了手机
  
  @param retHandler 同步结果回调
  */
@@ -336,7 +335,7 @@
 /**
  通知提醒开关设置
 
- @see HTWAlertMessage
+ @see `HTWAlertMessage`
  @param data 通知提醒开关配置
  @param retHandler 同步结果回调
  */
@@ -344,7 +343,7 @@
 
 
 /**
- ANCS语言设置，此接口会判断传感器标志位HWKSensorFlagTypeANCS，如果返回 <i>FCSyncResponseStateNoSensorFlag</i> 说明此功能不可用
+ ANCS语言设置，此接口会判断传感器标志位HWKSensorFlagTypeANCS，如果返回 <i>HWKSyncResponseStateNoSensorFlag</i> 说明此功能不可用
  
  @param retHandler 同步结果回调
  */
@@ -355,7 +354,7 @@
  喝水提醒设置(新固件)
  注：你可以通过<i>HTWSensorFlag</i>的drinkReminderAndFWTLS属性判断是否调用此接口（YES调用）
 
- @see HTWDrinkWaterReminder
+ @see `HTWDrinkWaterReminder`
  @param data 喝水提醒配置数据
  @param retHandler 同步结果回调
  */
@@ -364,9 +363,9 @@
 
 /**
  翻腕亮屏设置
- 注：此设置会判断标志位,如果同步结果返回 <i>FCSyncResponseStateNoSensorFlag</i> 说明无此标志位，此功能不可用
+ 注：此设置会判断标志位,如果同步结果返回 <i>HWKSyncResponseStateNoSensorFlag</i> 说明无此标志位，此功能不可用
 
- @see HTWTurnWristToLightUpScreen
+ @see `HTWTurnWristToLightUpScreen`
  @param data 翻腕亮屏配置数据
  @param retHandler 同步结果回调
  */
@@ -384,7 +383,7 @@
 
 
 /**
- 相机状态设置，拍照控制页面，app进入前台或者后台需要把相机状态发送给手表
+ 相机状态设置，在相机拍照页面，app进入前台或者后台需要把状态发送给手表
 
  @param bInForeground YES:app在后台  NO:app在前台
  @param retHandler 同步结果回调
@@ -394,18 +393,20 @@
 
 
 #pragma mark - 健康实时同步
+
 /**
  打开健康实时同步
  
+ @warning 实时同步需要快速响应，因此此功能使用LIFO调度，如果有实时同步正在进行，则会放弃其他实时同步任务，非实时任务会加入队列调度
  @param syncType 健康实时同步操作类型
- @param dataCallback 实时同步数据回调
+ @param dataHandler 实时同步数据回调
  @param retHandler 同步结果回调
  */
-- (void)wkOpenHealthyRealTimeSync:(HWKRTSyncType)syncType dataCallback:(HWKSyncDataHandler)dataCallback result:(HWKSyncResponseHandler)retHandler;
+- (void)wkOpenHealthyRealTimeSync:(HWKRTSyncType)syncType dataCallback:(HWKSyncDataHandler)dataHandler result:(HWKSyncResponseHandler)retHandler;
 
 
 /**
- 关闭健康实时同步
+ 关闭健康实时同步,只有实时同步正在进行的时候此指令才起作用
  
  @warning 如果关闭成功，此接口和上面的打开接口都会回调结果，关闭失败，只有此结果回调结果
  @param retHandler 同步结果回调
@@ -427,7 +428,7 @@
 /**
  固件升级接口，掉用此接口，蓝牙将会断开连接并进入固件升级模式，升级成功后，手表会重启
  
- @warning OTA升级过程中，队列中的其他任务会取消调度，如果升级途中有加入其他任务，升级完成或失败也会取消其他任务调度
+ @warning OTA升级过程中，队列中的其他任务会取消调度，如果升级途中有加入其他任务，升级完成或失败也会取消其他任务调度，如果正在执行健康和心电实时同步则放弃OTA升级
  @param filePath 要升级的固件路径
  @param progressHandler 固件升级进度回调
  @param retHandler 同步结果回调
@@ -446,7 +447,7 @@
 - (BOOL)removeTaskInQueueWithSelector:(SEL)selector;
 
 /**
- 移除队列中的所有任务，调用此接口，已入队的任务竟不会有回调
+ 移除队列中的所有任务，调用此接口，已入队的任务不会有回调，正在执行的任务不受影响
  */
 - (void)removeAllTasksInQueue;
 
