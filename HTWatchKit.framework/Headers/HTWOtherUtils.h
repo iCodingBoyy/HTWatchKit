@@ -12,7 +12,9 @@
 @interface HTWOtherUtils : NSObject
 
 
-
+/**
+ 跑步时间转换
+ */
 + (UInt32)runDateFromDate:(NSDate*)date;
 
 

@@ -75,7 +75,7 @@
  @param data 睡眠同步返回数据
  @return 包含<i>FCDataObject</i>对象的数组
  */
-+ (NSArray*)getRecordsOfSleep:(NSData*)data;
++ (NSArray<HTWHistoryData*>*)getRecordsOfSleep:(NSData*)data;
 
 
 
@@ -87,7 +87,7 @@
  @param data 心率同步返回数据
  @return 包含<i>FCDataObject</i>对象的数组
  */
-+ (NSArray*)getRecordsOfHeartRate:(NSData*)data;
++ (NSArray<HTWHistoryData*>*)getRecordsOfHeartRate:(NSData*)data;
 
 
 
@@ -98,7 +98,7 @@
  @param data 血氧同步返回数据
  @return 包含<i>FCDataObject</i>对象的数组
  */
-+ (NSArray*)getRecordsOfBloodOxygen:(NSData*)data;
++ (NSArray<HTWHistoryData*>*)getRecordsOfBloodOxygen:(NSData*)data;
 
 
 
@@ -111,7 +111,7 @@
  @param watchConfig 手表配置
  @return 包含<i>HTWHistoryData</i>对象的数组
  */
-+ (NSArray*)getRecordsOfBloodPressure:(NSData*)data watchConfig:(HTWatchConfig*)watchConfig;
++ (NSArray<HTWHistoryData*>*)getRecordsOfBloodPressure:(NSData*)data watchConfig:(HTWatchConfig*)watchConfig;
 
 
 
@@ -123,7 +123,7 @@
  @param data 呼吸频率同步返回数据
  @return 包含<i>FCDataObject</i>对象的数组
  */
-+ (NSArray*)getRecordsOfBreathingRate:(NSData*)data;
++ (NSArray<HTWHistoryData*>*)getRecordsOfBreathingRate:(NSData*)data;
 
 
 

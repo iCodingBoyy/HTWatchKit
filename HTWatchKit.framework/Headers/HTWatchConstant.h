@@ -33,6 +33,8 @@ FOUNDATION_EXTERN NSString *const EVENT_TAKE_PICTURES_COMMAND_NOTIFY;
 // 收到手表发出的查找手机指令，收到此指令你可以震动、响铃或者做其他操作方便用户通过手表找到手机
 FOUNDATION_EXTERN NSString *const EVENT_FIND_YOUR_PHONE_COMMAND_NOTIFY;
 
+
+
 #pragma mark  - 响应数据
 
 typedef NSString * HWKResponseDataIdentifier NS_STRING_ENUM;
