@@ -30,7 +30,7 @@
 /**
  七天历史睡眠总数据,如果有此标志位，可以同步七天睡眠总数据
  */
-@property (nonatomic, assign) BOOL sleepHistoryOfSevenDays;
+@property (nonatomic, assign) BOOL sevenDaysSleepSummary;
 
 /**
  心电功能标志
@@ -77,5 +77,22 @@
  */
 @property (nonatomic, assign) BOOL telegramAndViber;
 
+
+/**
+ 使用NSData序列化传感器标志
+
+ @param data 传感器标志协议数据
+ @return 序列化的对象
+ */
 + (instancetype)objectWithData:(NSData*)data;
+
+
+/**
+ 使用手表配置数据序列化对象
+
+ @see `HTWatchConfigUtils` <i>sensorFlagFromWatchConfig</i>
+ @param configData 手表配置
+ @return 序列化的对象
+ */
++ (instancetype)objectWithWatchConfig:(NSData*)configData;
 @end

@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, HWKDataType)
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, strong) NSNumber *extraValue;
 
-// 下面两个属性在FCDataTypeExercise类型时有效
+// 下面两个属性在FCDataTypeExercise类型时有效，目前不在计算距离和卡路里，用户根据需要进行计算
 @property (nonatomic, strong) NSNumber *calorie; // 小卡
 @property (nonatomic, strong) NSNumber *distance; // 米
 @end

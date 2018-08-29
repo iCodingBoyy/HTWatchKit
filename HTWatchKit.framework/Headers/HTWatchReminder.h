@@ -35,7 +35,8 @@
 @property (nonatomic, assign) NSUInteger edMinute;
 
 + (instancetype)objectWithData:(NSData *)data;
-
++ (instancetype)objectWithWatchConfig:(NSData *)configData;
+- (NSData*)updateWatchConfig:(NSData*)configData;
 
 /**
  判断是否处于午休时间，午休时间为12:00-14:00,如果处于这个范围则为午休时间。
@@ -53,7 +54,7 @@
 
 #pragma mark - HTWDrinkWaterReminder
 /**
- 喝水提醒
+ 喝水提醒，这个是升级版设置，需要传感器flag支持
  */
 @interface HTWDrinkWaterReminder : NSObject <NSCopying,NSCoding>
 // 开关状态
@@ -66,8 +67,8 @@
 @property (nonatomic, assign) NSUInteger edMinute;
 
 + (instancetype)objectWithData:(NSData *)data;
-
-
++ (instancetype)objectWithWatchConfig:(NSData *)configData;
+- (NSData*)updateWatchConfig:(NSData*)configData;
 - (NSData*)writeData;
 @end
 

@@ -59,7 +59,7 @@ typedef NS_ENUM(NSInteger, HTWatchConfigType)
  @param dataType 更新数据类型
  @return 更新后的手环系统配置（如果更新异常，则返回watchConfigData）
  */
-+ (NSData*)updateWatchConfig:(NSData*)watchConfigData withData:(NSData*)data andDataType:(HTWatchConfigType)dataType;
++ (NSData*)updateWatchConfig:(NSData*)watchConfigData withData:(NSData*)data forType:(HTWatchConfigType)dataType;
 
 
 #pragma mark - 消息通知

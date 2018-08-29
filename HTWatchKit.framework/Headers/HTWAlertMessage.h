@@ -62,6 +62,15 @@
 @property (nonatomic, assign) BOOL viber;
 
 + (instancetype)objectWithData:(NSData*)data;
++ (instancetype)objectWithWatchConfig:(NSData*)configData;
 
+/**
+ 更新手表配置数据
+ 
+ @warning 如果configData为nil,则返回空数据
+ @param configData 手表配置数据
+ @return 更新后的手表配置数据
+ */
+- (NSData*)updateWatchConfig:(NSData*)configData;
 - (NSData*)writeData;
 @end

@@ -28,6 +28,7 @@
 @property (nonatomic, assign) NSUInteger edMinute;
 
 + (instancetype)objectWithData:(NSData *)data;
-
++ (instancetype)objectWithWatchConfig:(NSData *)configData;
+- (NSData*)updateWatchConfig:(NSData*)configData;
 - (NSData*)writeData;
 @end

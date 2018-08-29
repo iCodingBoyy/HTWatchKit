@@ -45,38 +45,26 @@ typedef NS_ENUM(NSInteger, HWKSyncResponseErrorCode) {
     /*! 蓝牙关闭，主动关闭蓝牙时回调*/
     HWKSyncResponseErrorCodeBlePowerOff = 5,
     
-    /*! 蓝牙打开，主动打开蓝牙时回调*/
-    HWKSyncResponseErrorCodeBlePowerOn = 6,
-    
     /*! 蓝牙断开连接，主动或者被动断开都会调用*/
     HWKSyncResponseErrorCodeBleDisconnect = 7,
     
     /*! 同步参数错误,部分带入参的接口有此返回*/
     HWKSyncResponseErrorCodeParameterError = 8,
     
-    /*! 固件不支持此功能*/
-    HWKSyncResponseErrorCodeFirmwareDoesNotSupport = 9,
-    
     /*! 正在同步，蓝牙正在同步时发起同步操作会返回此结果*/
-    HWKSyncResponseErrorCodeSynchronizing = 10,
+    HWKSyncResponseErrorCodeSyncing = 10,
     
-    /*! 蓝牙正在进行其他同步*/
-    HWKSyncResponseErrorCodeSyncingOther = 11,
-    
-    /*! 同步响应超时*/
+    /*! 同步超时*/
     HWKSyncResponseErrorCodeTimeOut,
     
-    /*! 健康实时同步超时*/
-    HWKSyncResponseErrorCodeRTTimeOut,
+    /*! 实时同步超时*/
+    HWKSyncResponseErrorCodeRTSTimeOut,
     
-    /*! 关闭健康实时同步错误*/
+    /*! 打开实时同步错误*/
+    HWKSyncResponseErrorCodeOpenRTSError,
+    
+    /*! 关闭实时同步错误*/
     HWKSyncResponseErrorCodeCloseRTSError,
-    
-    /*! 打开心电检测数据同步错误*/
-    HWKSyncResponseErrorCodeOpenECGError,
-    
-    /*! 心电检测数据同步超时*/
-    HWKSyncResponseErrorCodeECGTimeOut,
     
     /*! 心电正在同步*/
     HWKSyncResponseErrorCodeECGSynching,
@@ -96,30 +84,40 @@ typedef NS_ENUM(NSInteger, HWKSyncResponseErrorCode) {
     /*! 数据长度错误*/
     HWKSyncResponseErrorCodeDataLenError,
     
-    /*! 目标任务未启动,只针对实时同步等未启动*/
-    HWKSyncResponseErrorCodeTargetTaskNotStarted,
+    /*! 当前无实时同步任务*/
+    HWKSyncResponseErrorCodeNoRTSyncTask,
     
     /*! ota文件路径不存在*/
     HWKSyncResponseErrorCodeOTAFilePathIsNULL,
+    
+    /*! 调用其他实时任务接口如果正在执行实时健康同步或者Task Queued则返回以下errorCode*/
+    HWKSyncResponseErrorCodeRTHealthRateIsSyncing,
+    HWKSyncResponseErrorCodeRTBloodOxygenIsSyncing,
+    HWKSyncResponseErrorCodeRTBloodPressureIsSyncing,
+    HWKSyncResponseErrorCodeRTBreathingRateIsSyncing,
+    
+    /*! 调用其他实时任务接口如果正在执行ECG或者ECG Queued则返回此errorCode*/
+    HWKSyncResponseErrorCodeRTECGIsSyncing,
+    
+    /*! 调用其他实时任务接口如果正在执行OTA或者OTA Queued则返回此errorCode*/
+    HWKSyncResponseErrorCodeOTAIsTransferring,
 };
 
 
 @interface HTWSyncResponse : NSObject
-
+@property (nonatomic, assign) HWKSyncType syncType;
 /**
  响应状态，获取结果时优先判断响应状态
  */
 @property (nonatomic, assign) HWKSyncResponseState responseState;
-
 /**
  responseState为Error时，此错误码有效-
  */
 @property (nonatomic, assign) HWKSyncResponseErrorCode errorCode;
-
 /**
- 当前同步的类型
+ responseState为Error时，此描述有效
  */
-@property (nonatomic, assign) HWKSyncType syncType;
+@property (nonatomic, strong) NSString *errorDesc;
 
 
 /**
@@ -139,8 +137,4 @@ typedef NS_ENUM(NSInteger, HWKSyncResponseErrorCode) {
  */
 - (NSData*)getResponseDataWithIdentifier:(NSString*)identifier;
 
-
-#pragma mark - init
-
-+ (instancetype)errorResponseWithType:(HWKSyncType)syncType errorCode:(HWKSyncResponseErrorCode)errorCode;
 @end

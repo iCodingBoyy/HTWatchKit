@@ -88,7 +88,7 @@ typedef NS_OPTIONS(UInt32, HWKSensorFlagType)
 };
 
 /**
- 实时同步类型
+ 健康实时同步类型
  */
 typedef NS_ENUM(NSInteger, HWKRTSyncType)
 {
@@ -102,8 +102,6 @@ typedef NS_ENUM(NSInteger, HWKRTSyncType)
     HWKRTSyncTypeBloodPressure,
     /*! 呼吸频率*/
     HWKRTSyncTypeBreathingRate,
-    /*! 心电图*/
-    HWKRTSyncTypeECG,
 };
 
 

@@ -39,6 +39,7 @@
 @property (nonatomic, assign) BOOL isFahrenheitTemperatureUnit;
 
 + (instancetype)objectWithData:(NSData*)data;
-
++ (instancetype)objectWithWatchConfig:(NSData*)configData;
+- (NSData*)updateWatchConfig:(NSData*)configData;
 - (NSData*)writeData;
 @end

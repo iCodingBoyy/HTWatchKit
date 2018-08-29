@@ -402,7 +402,7 @@
  @param dataHandler 实时同步数据回调
  @param retHandler 同步结果回调
  */
-- (void)wkOpenHealthyRealTimeSync:(HWKRTSyncType)syncType dataCallback:(HWKSyncDataHandler)dataHandler result:(HWKSyncResponseHandler)retHandler;
+- (void)wkOpenHealthRTSync:(HWKRTSyncType)syncType dataCallback:(HWKSyncDataHandler)dataHandler result:(HWKSyncResponseHandler)retHandler;
 
 
 /**
@@ -411,7 +411,35 @@
  @warning 如果关闭成功，此接口和上面的打开接口都会回调结果，关闭失败，只有此结果回调结果
  @param retHandler 同步结果回调
  */
-- (void)wkCloseHealthyRealTimeSync:(HWKSyncResponseHandler)retHandler;
+- (void)wkCloseHealthRTSync:(HWKSyncResponseHandler)retHandler;
+
+
+#pragma mark - 心电实时同步
+
+/**
+ 获取心电同步状态
+ 
+ @warning 历史数据同步内部已调用此指令，如果手表心电正在工作，你可能无法正常同步数据
+ @param retHandler 同步结果回调
+ */
+- (void)wkGetECGRTSState:(HWKSyncResponseHandler)retHandler;
+
+/**
+ 打开心电实时同步
+ 
+ @warning 心电和健康实时同步以及固件升级属于高优先级响应的任务，同一时刻只允许一个任务在队列中LIFO调度,如果队列中有实时任务正在执行，则放弃当前任务调度
+ @param dataHandler 心电实时数据回调
+ @param retHandler 同步结果回调
+ */
+- (void)wkOpenECGRTSync:(HWKSyncDataHandler)dataHandler result:(HWKSyncResponseHandler)retHandler;
+
+/**
+ 关闭心电实时同步
+ 
+ @warning 如果没有实时同步正在进行则不会发送关闭指令，如果关闭不成功，关闭指令内部最多发送三遍
+ @param retHandler 同步结果回调
+ */
+- (void)wkCloseECGRTSync:(HWKSyncResponseHandler)retHandler;
 
 
 

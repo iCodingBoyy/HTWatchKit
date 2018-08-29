@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HTWHistoryData.h"
+#import "HTWatchConfig.h"
 
 
 
@@ -49,7 +51,7 @@
  @return 七日睡眠记录
  */
 
-+ (NSArray*)getSevenDaysSleepTotalData:(NSData*)data;
++ (NSArray<NSDictionary*>*)getSevenDaysSleepTotalData:(NSData*)data;
 
 
 
@@ -61,7 +63,7 @@
  @param data 运动同步返回数据
  @return 包含<i>FCDataObject</i>对象的数组
  */
-+ (NSArray*)getRecordsOfExercise:(NSData*)data;
++ (NSArray<HTWHistoryData*>*)getRecordsOfExercise:(NSData*)data;
 
 
 
@@ -106,11 +108,10 @@
  获取血压详细记录（每五分钟一个数据）
  
  @param data 血压同步数据返回
- @param systolicBP 收缩压参考值
- @param diastolicBP 舒张压参考值
- @return 包含<i>FCDataObject</i>对象的数组
+ @param watchConfig 手表配置
+ @return 包含<i>HTWHistoryData</i>对象的数组
  */
-+ (NSArray*)getRecordsOfBloodPressure:(NSData*)data systolicBP:(UInt16)systolicBP diastolicBP:(UInt16)diastolicBP;
++ (NSArray*)getRecordsOfBloodPressure:(NSData*)data watchConfig:(HTWatchConfig*)watchConfig;
 
 
 
